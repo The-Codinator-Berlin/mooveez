@@ -10,9 +10,9 @@ function Navigation() {
           <Link className="navigation-links bg-neutral-900 rounded text-neutral-50">Home</Link>&nbsp;&nbsp;&nbsp;&nbsp;
           <Link className="navigation-links bg-neutral-900 rounded text-neutral-50">Mooveez</Link>&nbsp;&nbsp;&nbsp;&nbsp;
           <Link className="navigation-links bg-neutral-900 rounded text-neutral-50">About</Link>&nbsp;&nbsp;&nbsp;&nbsp;
-          <button className="bg-red-500	rounded text-neutral-50 navigation-links">Login</button>
+          <Link className="bg-red-500	rounded text-neutral-50 navigation-links">Login</Link>
         </nav>
-        
+      
     </>
   )
 }
