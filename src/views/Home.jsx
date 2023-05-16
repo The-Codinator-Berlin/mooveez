@@ -1,8 +1,8 @@
 import React from 'react'
-
+import '../css/Home.css'
 function Home() {
   return (
-    <div>Home</div>
+    <div className="homeDiv bg-neutral-900 text-neutral-50">Home</div>
   )
 }
 
