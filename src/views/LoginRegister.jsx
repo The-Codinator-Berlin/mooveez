@@ -4,7 +4,7 @@ function LoginRegister() {
   return (
     <div className="loginBoxContainer">
       <div className="loginBox">
-        <p className="text-4xl text-red-600 font-light">Login</p>
+        <p className="text-6xl text-red-600 font-light">Login</p>
         <br></br>
         <div className="mt-2">
           <input
