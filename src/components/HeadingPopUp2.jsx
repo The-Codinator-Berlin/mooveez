@@ -10,7 +10,7 @@ function HeadingPopup2() {
 
   return (
     <div className="mooveezBox">
-      {isOpeningScreenVisible2 && <h3 className="text-red-600">Mooveez are for cows, not just for people!</h3>}
+      {isOpeningScreenVisible2 && <h3 className="text-red-600 font-light">Mooveez are for cows, not just for people!</h3>}
     </div>
   );
 }
