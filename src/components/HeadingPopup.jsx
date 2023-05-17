@@ -1,5 +1,6 @@
 import { useState } from "react";
 import '../css/HeadingPopUp.css'
+import HeadingPopup2 from "./HeadingPopUp2";
 
 
 function HeadingPopup() {
@@ -7,10 +8,12 @@ function HeadingPopup() {
   setTimeout(() => {
     setOpeningScreenVisible(true);
   }, 1000);
+
   return (
     <div className="mooveezBox">
-      {isOpeningScreenVisible &&<h1 className="text-9xl text-red-600">MOOVEEZ</h1>}
-      <h3 className="text-red-600">Mooveez are for cows not just for people!</h3>
+      {isOpeningScreenVisible &&<h1 className="text-9xl text-red-600">MOOVEEZ
+      </h1>}
+      <HeadingPopup2 />
     </div>
   );
 }

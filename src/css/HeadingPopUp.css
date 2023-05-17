@@ -1,11 +1,11 @@
 
 .mooveezBox{
+  padding-top: 1.7em;
     height:100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     animation: fade-in 3s linear;
-    
     
 }
 
