@@ -1,10 +1,10 @@
 import React from 'react'
-import '../css/Home.css'
+import '../css/Mooveez.css'
 import HeadingPopup from '../components/HeadingPopup';
-import HeadingPopUp2 from '../components/HeadingPopUp2';
 
 
-function Home() {
+
+function Mooveez() {
   
   return (
     <div className="homeDiv bg-neutral-900 text-neutral-50">
@@ -13,4 +13,4 @@ function Home() {
   )
 }
 
-export default Home;
+export default Mooveez;
