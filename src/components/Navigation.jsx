@@ -12,7 +12,7 @@ function Navigation() {
     <>
       <nav className="navigation-box border-b	border-blue-700 h-10 bg-blue-950 p-2">
         <Link
-          to="/mooveez"
+          to="/"
           className="navigation-links bg-neutral-900 rounded text-neutral-50 hover:active:bg-green-600 hover:bg-slate-400"
         >
           Mooveez
