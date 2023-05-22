@@ -19,7 +19,7 @@ function MoveeCard({ moovee }) {
       </div>
       <button
         type="button"
-        className="text-neutral-50 rounded-full px-2.5 py-1 text-xs font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 text-neutral-50 hover:text-red-500 shadow-slate-50 shadow-md"
+        className="text-neutral-50 rounded-full px-2.5 py-1 text-xs font-semibold shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 text-neutral-50 hover:text-red-600 shadow-slate-50 shadow-md"
       >
         More +
       </button>
