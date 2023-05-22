@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../css/Mooveez.css";
 import HeadingPopup from "../components/HeadingPopup";
-import MoveeCard from "../components/MoveeCard";
+import MoveeCard from "../components/MooveeCard";
 
 function Mooveez() {
   const [mooveez, setMooveez] = useState([]);
