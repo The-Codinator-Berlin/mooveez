@@ -11,7 +11,7 @@ function HeadingPopup() {
 
   return (
     <div className="mooveezBox">
-      {isOpeningScreenVisible &&<h1 className="text-9xl text-red-600">MOOVEEZ
+      {isOpeningScreenVisible &&<h1 className="sm: text-4xl md:text-9xl text-red-600">MOOVEEZ
       </h1>}
       <HeadingPopup2 />
     </div>
