@@ -26,9 +26,9 @@ function Navigation() {
        
         <Link
           to="/login/register"
-          className="bg-red-500	rounded text-neutral-50 navigation-links hover:active:bg-green-600 hover:bg-slate-400"
+          className="bg-red-500	rounded text-neutral-50 navigation-link-login hover:active:bg-green-600 hover:bg-slate-400 loginButton "
         >
-          Login
+          Login/Register
         </Link>
       </nav>
     </>

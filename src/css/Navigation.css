@@ -12,3 +12,11 @@
 }
 
 
+
+.navigation-link-login{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 7em;
+    border: solid 1px rgba(23, 102, 221, 0.765);
+}
