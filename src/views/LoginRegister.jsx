@@ -1,5 +1,7 @@
 import React from "react";
 import "../css/LoginRegister.css";
+import { Link } from "react-router-dom";
+import Register from "../views/Register"
 function LoginRegister() {
   return (
     <div className="loginBoxContainer">
@@ -29,7 +31,7 @@ function LoginRegister() {
 
         <button className="bg-red-600 rounded hover:bg-slate-400">Submit</button>
         <br></br>
-        <p className="text-neutral-50 hover:text-slate-400"><u>Create a free account</u></p>
+        <p className="text-neutral-50 hover:text-slate-400"><Link to="/register"><u>Create a free account</u></Link></p>
       </div>
     </div>
   );
