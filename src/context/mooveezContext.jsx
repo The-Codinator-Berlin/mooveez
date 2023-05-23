@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const MooveezContext = createContext();
 
 export const MooveezContextProvider = (props) => {
-  // console.log('props :>> ', props);f
+  // console.log('props :>> ', props);
 
   const [mooveez, setMooveez] = useState([]);
 
