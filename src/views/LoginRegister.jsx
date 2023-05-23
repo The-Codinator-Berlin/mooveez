@@ -1,15 +1,17 @@
 import React, { useContext } from "react";
 import "../css/LoginRegister.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 function LoginRegister() {
   const { setUser } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
+  const navigateToMooveezOnLog = useNavigate();
   const login = () => {
     setUser({
       name: "Carl",
     });
+    navigateToMooveezOnLog("/");
   };
 
   return (
@@ -55,9 +57,23 @@ function LoginRegister() {
           Go {">"}
         </button>
         <br></br>
-        <span>
-        { user ? <><Link to="/" className="text-neutral-50 border-blue-700 rounded bg-green-500 hover:active:bg-green-500 hover:bg-blue-500 logOutButton">Continue to Mooveez</Link></> : [""] }
-        </span>
+    
+        {/* //NOTE - Alternative way to home after login */}
+        {/* <span>
+          {user ? (
+            <>
+              <Link
+                to="/"
+                className="text-neutral-50 border-blue-700 rounded bg-green-500 hover:active:bg-green-500 hover:bg-blue-500 logOutButton"
+              >
+                Continue to Mooveez
+              </Link>
+            </>
+          ) : (
+            [""]
+          )}
+        </span> */}
+       
         <br></br>
         <span className="text-neutral-50 hover:text-slate-400">
           <Link to="/register">
