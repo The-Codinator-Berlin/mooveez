@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 
 function LoginRegister() {
   const { setUser } = useContext(AuthContext);
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
   const navigateToMooveezOnLog = useNavigate();
   const login = () => {
     setUser({
@@ -19,14 +19,10 @@ function LoginRegister() {
       <div className="loginBox">
         <p className="text-6xl text-red-600 font-light">Login</p>
         <span>
-          {/* {" "} */}
-          {user ? (
-            <h5 className="text-green-500">{user.name} is logged in! </h5>
-          ) : (
+          
             <h2 className=" py-4 text-blue-600">
               Please login to access features
             </h2>
-          )}
         </span>
         <br></br>
         <div className="mt-2">
