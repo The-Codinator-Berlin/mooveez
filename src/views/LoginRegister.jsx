@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../css/LoginRegister.css";
 import { Link } from "react-router-dom";
-import Register from "../views/Register"
+import { AuthContext } from "../context/AuthContext";
+
+
+
 function LoginRegister() {
+  const {setUser} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
+    const login = () => {
+  setUser({
+    name:"Carl",
+    });
+  
+    };
+  
+
   return (
     <div className="loginBoxContainer">
       <div className="loginBox">
         <p className="text-6xl text-red-600 font-light">Login</p>
+        <span> { user ? <h5 className="text-green-500">{user.name} is logged in!  </h5> : <h2 className=" py-4 text-blue-600">Please login to access features</h2> }</span>
         <br></br>
         <div className="mt-2">
           <input
@@ -29,7 +43,7 @@ function LoginRegister() {
         </div>
         <br></br>
 
-        <button className="bg-red-600 rounded hover:bg-slate-400">Submit</button>
+        <button variant="info" onClick={login} className="bg-red-600 rounded hover:bg-slate-400 hover:active:bg-green-600">Go ></button>
         <br></br>
         <p className="text-neutral-50 hover:text-slate-400"><Link to="/register"><u>Create a free account</u></Link></p>
       </div>
