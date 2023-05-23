@@ -17,7 +17,7 @@ function LoginRegister() {
       <div className="loginBox">
         <p className="text-6xl text-red-600 font-light">Login</p>
         <span>
-          {" "}
+          {/* {" "} */}
           {user ? (
             <h5 className="text-green-500">{user.name} is logged in! </h5>
           ) : (
@@ -54,6 +54,10 @@ function LoginRegister() {
         >
           Go {">"}
         </button>
+        <br></br>
+        <span>
+        { user ? <><Link to="/" className="text-neutral-50 border-blue-700 rounded bg-green-500 hover:active:bg-green-500 hover:bg-blue-500 logOutButton">Continue to Mooveez</Link></> : [""] }
+        </span>
         <br></br>
         <span className="text-neutral-50 hover:text-slate-400">
           <Link to="/register">
