@@ -6,7 +6,7 @@ function About() {
       <div>
       <h1 className="text-9xl text-red-600 about-h1 font-light">About</h1>
       </div>
-      <div className="aboutDiv">
+      <span className="aboutDiv">
       <p className="text-red-600 pt-14">This website is designed by Carl Manley.<br></br><a className="hover:text-slate-400" href="mailto:carl.manley.berlin@gmail.com"><span className="text-blue-700 hover:text-slate-400">carl.manley.berlin@gmail.com</span></a><br></br>GitHub: <a className="hover:text-slate-400" href="https://github.com/The-Codinator-Berlin"><span className="text-blue-700 hover:text-slate-400">https://github.com/The-Codinator-Berlin</span></a> <br></br><br></br><br></br>This product uses the <span className="text-blue-700 hover:text-slate-400"><a href="https://www.themoviedb.org/">TMDB API</a></span> but is not endorsed or certified by TMDB.
       <br></br> <br></br>
       <div className="tmdbLogoBox">
@@ -15,7 +15,7 @@ function About() {
           <br></br>
       Built purely for educational purposes.</p>
       
-      </div>
+      </span>
       </div>
   );
 }
