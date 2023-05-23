@@ -6,7 +6,11 @@ import { AuthContext } from "../context/AuthContext";
 
 function Navigation() {
   
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+
+  const logout = () => {
+    setUser(null);
+  };
   
   return (
     <>
@@ -24,7 +28,7 @@ function Navigation() {
           About
         </Link>
 
-        { user ? <><Link to="/favourites" className="text-neutral-50 border-blue-700 rounded bg-green-600 hover:active:bg-red-500 hover:bg-slate-400 favouritesButton">Favourites</Link><Link to="/login/register" className="text-neutral-50 border-blue-700 rounded bg-red-500 hover:active:bg-red-500 hover:bg-slate-400 logOutButton">Log out  </Link></> : 
+        { user ? <><Link to="/favourites" className="text-neutral-50 border-blue-700 rounded bg-green-600 hover:active:bg-red-500 hover:bg-slate-400 favouritesButton">Favourites</Link><Link onClick={logout}to="/" className="text-neutral-50 border-blue-700 rounded bg-red-500 hover:active:bg-red-500 hover:bg-slate-400 logOutButton">Log out  </Link></> : 
         
         <Link to="/login/register" className=" bg-blue-700	rounded text-neutral-50 navigation-link-login hover:active:bg-green-600 hover:bg-slate-400 loginButton border-blue-700 ">Login/Register</Link> }
        
