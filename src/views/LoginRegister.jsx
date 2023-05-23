@@ -42,7 +42,6 @@ function LoginRegister() {
           />
         </div>
         <br></br>
-
         <button variant="info" onClick={login} className="bg-red-600 rounded hover:bg-slate-400 hover:active:bg-green-600">Go {">"}</button>
         <br></br>
         <span className="text-neutral-50 hover:text-slate-400"><Link to="/register"><u>Create a free account</u></Link></span>
