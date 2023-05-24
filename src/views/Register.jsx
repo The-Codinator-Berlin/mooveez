@@ -1,10 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import "../css/Register.css"
 
 
 
 function Register() {
- 
+//  const [email, setemail] = useState("")
+//  const [email, setemail] = useState("")
   
   return (
     <div className="RegisterContainer">
@@ -13,15 +14,25 @@ function Register() {
         <span>
           
             <h2 className=" py-4 text-blue-600">
-              Input a username & password
+              Input your first name & create a username & password
             </h2>
         </span>
         <br></br>
         <div className="mt-2">
           <input
-            type="text"
+            type="name"
             name="name"
             id="name"
+            className="block w-70 rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset ring-red-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-950 sm:text-sm sm:leading-6"
+            placeholder="First name..."
+          />
+        </div>
+        <br></br>
+        <div className="mt-2">
+          <input
+            type="username"
+            name="username"
+            id="username"
             className="block w-70 rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset ring-red-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-950 sm:text-sm sm:leading-6"
             placeholder="Username..."
           />
@@ -29,7 +40,7 @@ function Register() {
         <br></br>
         <div className="mt-2">
           <input
-            type="text"
+            type="password"
             name="password"
             id="password"
             className="block w-70 rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset ring-red-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-950 sm:text-sm sm:leading-6"
@@ -39,7 +50,7 @@ function Register() {
         <br></br>
         <button
           variant="info"
-          onClick={Register}
+          onClick={HandleRegisterClick}
           className="bg-red-600 rounded hover:bg-slate-400 hover:active:bg-green-600"
         >
           Go {">"}
