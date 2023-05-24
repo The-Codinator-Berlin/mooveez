@@ -1,0 +1,25 @@
+.RegisterBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.RegisterContainer{
+    display: grid;
+    place-items: center;
+    height:50em;
+}
+
+button{
+    width: 6em;
+}
+
+.logOutButton{
+    width: 6em;
+}
+
+body{
+    overflow-y: hidden;
+   
+}
