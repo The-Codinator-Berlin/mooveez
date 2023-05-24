@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import "../css/Mooveez.css";
 import HeadingPopup from "../components/HeadingPopup";
 import MoveeCard from "../components/MooveeCard";
-import { MooveezContext } from "../context/mooveezContext";
+import { MooveezContext } from "../context/MooveezContext";
 
 function Mooveez() {
   const { mooveez, getMooveez } = useContext(MooveezContext);
