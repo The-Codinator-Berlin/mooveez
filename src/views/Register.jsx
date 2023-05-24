@@ -1,7 +1,12 @@
 import React, { useContext, useState } from "react";
 import "../css/Register.css";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 
 function Register() {
+  const { registerUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -19,7 +24,13 @@ function Register() {
   };
 
   const HandleRegisterClick = () => {
-    console.log("name, email,password :>> ",name, email, password);
+    registerUser(email, password);
+    login()
+  };
+  const navigateToMooveezOnLog = useNavigate();
+  const login = () => {
+    setUser(user);
+    navigateToMooveezOnLog("/");
   };
 
   return (
@@ -37,7 +48,7 @@ function Register() {
             type="name"
             name="name"
             id="name"
-            value ={name}
+            value={name}
             onChange={handleNameChange}
             className="block w-70 rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset ring-red-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-950 sm:text-sm sm:leading-6"
             placeholder="First name..."
