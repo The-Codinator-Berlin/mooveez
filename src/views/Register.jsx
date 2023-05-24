@@ -1,49 +1,55 @@
-import React, { useContext, useState } from 'react'
-import "../css/Register.css"
-
-
+import React, { useContext, useState } from "react";
+import "../css/Register.css";
 
 function Register() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
 
   const handleEmailChange = (e) => {
-  setEmail(e.target.value)
-  }
+    setEmail(e.target.value);
+  };
 
   const handlePasswordChange = (e) => {
-    setEmail(e.target.value)
-    }
+    setPassword(e.target.value);
+  };
 
- const [email, setEmail] = useState("")
- const [password, setPassword] = useState("")
-  
+  const HandleRegisterClick = () => {
+    console.log("name, email,password :>> ",name, email, password);
+  };
+
   return (
     <div className="RegisterContainer">
       <div className="RegisterBox">
         <p className="text-6xl text-red-600 font-light">Register</p>
         <span>
-          
-            <h2 className=" py-4 text-blue-600">
-              Input your first name & create a username & password
-            </h2>
+          <h2 className=" py-4 text-blue-600">
+            Input your first name, email & create a password
+          </h2>
         </span>
-        {/* <br></br>
+        <br></br>
         <div className="mt-2">
           <input
             type="name"
             name="name"
             id="name"
             value ={name}
+            onChange={handleNameChange}
             className="block w-70 rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset ring-red-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-950 sm:text-sm sm:leading-6"
             placeholder="First name..."
           />
-        </div> */}
+        </div>
         <br></br>
         <div className="mt-2">
           <input
             type="email"
             name="email"
             id="email"
-            value ={email}
+            value={email}
             onChange={handleEmailChange}
             className="block w-70 rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset ring-red-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-950 sm:text-sm sm:leading-6"
             placeholder="Email..."
@@ -64,7 +70,7 @@ function Register() {
         <br></br>
         <button
           variant="info"
-          // onClick={HandleRegisterClick}
+          onClick={HandleRegisterClick}
           className="bg-red-600 rounded hover:bg-slate-400 hover:active:bg-green-600"
         >
           Go {">"}
@@ -72,6 +78,6 @@ function Register() {
       </div>
     </div>
   );
-};
+}
 
 export default Register;
