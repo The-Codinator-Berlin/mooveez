@@ -27,9 +27,10 @@ function LoginRegister() {
         <br></br>
         <div className="mt-2">
           <input
-            type="text"
-            name="name"
-            id="name"
+            type="email"
+            name="email"
+            id="email"
+            // value ={}
             className="block w-70 rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset ring-red-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-950 sm:text-sm sm:leading-6"
             placeholder="Username..."
           />
@@ -37,9 +38,10 @@ function LoginRegister() {
         <br></br>
         <div className="mt-2">
           <input
-            type="text"
+            type="password"
             name="password"
             id="password"
+            // value={password}
             className="block w-70 rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset ring-red-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-950 sm:text-sm sm:leading-6"
             placeholder="Password..."
           />
