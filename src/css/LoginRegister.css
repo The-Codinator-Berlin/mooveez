@@ -19,3 +19,7 @@ button{
     width: 6em;
 }
 
+body{
+    overflow-y: hidden;
+   
+}
