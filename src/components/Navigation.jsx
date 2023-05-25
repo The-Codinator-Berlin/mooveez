@@ -25,7 +25,7 @@ function Navigation() {
         >
           About
         </Link>
-
+        {/* //NOTE - Leaving here for further dvelopment for name input */}
         {/* <span> */}
         {/* {" "} */}
         {/* {user ? (
