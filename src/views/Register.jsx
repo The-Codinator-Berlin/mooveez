@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import "../css/Register.css";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function Register() {
@@ -39,10 +39,15 @@ function Register() {
         <p className="text-6xl text-red-600 font-light">Register</p>
         <span>
           <h2 className=" py-4 text-blue-600">
-            Input your first name, email & create a password
+            {/* //NOTE - Left for further development */}
+            {/* Input your first name, email & create a password */}
+            Please add you email and create a password
           </h2>
         </span>
         <br></br>
+
+        {/* //NOTE - Left for further development (Name input) */}
+        {/* <br></br>
         <div className="mt-2">
           <input
             type="name"
@@ -54,7 +59,7 @@ function Register() {
             placeholder="First name..."
           />
         </div>
-        <br></br>
+        <br></br> */}
         <div className="mt-2">
           <input
             type="email"
@@ -79,6 +84,8 @@ function Register() {
           />
         </div>
         <br></br>
+        <br></br>
+
         <button
           variant="info"
           onClick={HandleRegisterClick}
@@ -86,6 +93,9 @@ function Register() {
         >
           Go {">"}
         </button>
+        <br></br>
+
+        <Link className="text-neutral-50 hover:text-slate-400 mt-2"><u>Already have an acount? Go to Login page {">"}</u></Link>
       </div>
     </div>
   );
