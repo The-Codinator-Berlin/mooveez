@@ -1,12 +1,14 @@
 import React, { useContext, useState } from "react";
 import "../css/LoginRegister.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
+
 function Login() {
-  const { user, setUser } = useContext(AuthContext);
+  // const { user, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const {login} =useContext(AuthContext)
 
 const handleEmailChange =(e) => {
   setEmail(e.target.value);
@@ -17,13 +19,14 @@ const handlePasswordChange =(e) => {
 }
 
 const handleLoginClick = () => {
-  console.log('email, password :>> ', email, password);
+  // console.log('email, password :>> ', email, password);
+  login(email, password);
+  navigateOnLogin();
 }
-  // const navigateToMooveezOnLog = useNavigate();
-  // const login = () => {
-  //   setUser(user);
-  //   navigateToMooveezOnLog("/");
-  // };
+  const navigateToMooveezOnLog = useNavigate();
+  const navigateOnLogin = () => {
+    navigateToMooveezOnLog("/");
+  };
 
   return (
     <div className="loginBoxContainer">
