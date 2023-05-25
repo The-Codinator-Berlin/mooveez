@@ -101,7 +101,7 @@ function Register() {
         </button>
         <br></br>
 
-        <Link className="text-neutral-50 hover:text-slate-400 mt-2">
+        <Link to="/login"className="text-neutral-50 hover:text-slate-400 mt-2">
           <u>Already have an acount? Go to Login page {">"}</u>
         </Link>
       </div>
