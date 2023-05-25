@@ -6,9 +6,9 @@
 }
 
 .loginBoxContainer{
+    height: 45em;
     display: grid;
     place-items: center;
-    height:50em;
 }
 
 button{
@@ -19,7 +19,7 @@ button{
     width: 6em;
 }
 
-body{
+/* body{
     overflow-y: hidden;
    
-}
+} */

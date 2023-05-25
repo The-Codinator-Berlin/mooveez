@@ -8,7 +8,7 @@
 .RegisterContainer{
     display: grid;
     place-items: center;
-    height:50em;
+    height: 45em;
 }
 
 button{
