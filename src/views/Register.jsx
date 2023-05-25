@@ -3,17 +3,18 @@ import "../css/Register.css";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 
-
 function Register() {
   const { registerUser } = useContext(AuthContext);
   const { user, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
 
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
+  // //NOTE - For Name input/ further development.
+  // const [name, setName] = useState("");
+
+  // const handleNameChange = (e) => {
+  //   setName(e.target.value);
+  // };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -25,7 +26,12 @@ function Register() {
 
   const HandleRegisterClick = () => {
     registerUser(email, password);
-    login()
+    if (!email.includes("@") | password.length < 6) {
+      alert("Please check email/ Password should be at least 6 characters!")
+    } else {
+      alert("Your registration was successful!");
+      login();
+    }
   };
   const navigateToMooveezOnLog = useNavigate();
   const login = () => {
@@ -95,7 +101,9 @@ function Register() {
         </button>
         <br></br>
 
-        <Link className="text-neutral-50 hover:text-slate-400 mt-2"><u>Already have an acount? Go to Login page {">"}</u></Link>
+        <Link className="text-neutral-50 hover:text-slate-400 mt-2">
+          <u>Already have an acount? Go to Login page {">"}</u>
+        </Link>
       </div>
     </div>
   );
