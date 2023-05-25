@@ -1,5 +1,5 @@
-import { createContext, useState } from "react";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createContext, useEffect, useState } from "react";
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/FirebaseConfig.js";
 
 export const AuthContext = createContext();
@@ -46,7 +46,28 @@ export const AuthContextProvider = (props) => {
     }
   };
 
-  
+  const checkIfUserIsLoggedIn = () => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const uid = user.uid;
+        // User is signed in
+        // ...
+        console.log("User IS logged in!", user)
+        setUser(user);
+      } else {
+        // User is signed out
+        // ...
+        console.log("User is NOT loggin in!");
+        setUser(null)
+      }
+    });
+  }
+
+useEffect(() => {
+ checkIfUserIsLoggedIn()
+}, [])
+
+
   return (
     <AuthContext.Provider value={{ user, setUser, registerUser, login }}>
       {props.children}
