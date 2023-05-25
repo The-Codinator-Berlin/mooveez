@@ -8,7 +8,6 @@ export const AuthContextProvider = (props) => {
   const [user, setUser] = useState(null);
 
   const registerUser = async (email, password) => {
-    // console.log('email, password :>> ', email, password);
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -29,7 +28,6 @@ export const AuthContextProvider = (props) => {
   };
 
   const login = async (email, password) => {
-    // console.log('email, password :>> ', email, password);
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -37,7 +35,6 @@ export const AuthContextProvider = (props) => {
         password
       );
 
-      console.log('userCrential :>> ', userCredential);
       const user = userCredential.user;
       setUser(user)
 
