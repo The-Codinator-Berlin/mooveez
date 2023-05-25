@@ -1,5 +1,10 @@
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { auth } from "../config/FirebaseConfig.js";
 
 export const AuthContext = createContext();
@@ -15,15 +20,14 @@ export const AuthContextProvider = (props) => {
         password
       );
 
-      console.log('userCrential :>> ', userCredential);
+      console.log("userCrential :>> ", userCredential);
       const user = userCredential.user;
-      setUser(user)
-
+      setUser(user);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log('errorMessage :>> ', errorMessage);
-      setUser(null)
+      console.log("errorMessage :>> ", errorMessage);
+      setUser(null);
     }
   };
 
@@ -36,13 +40,12 @@ export const AuthContextProvider = (props) => {
       );
 
       const user = userCredential.user;
-      setUser(user)
-
+      setUser(user);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log("errorMessage :>> ", errorMessage);
-      setUser(null)
+      setUser(null);
     }
   };
 
@@ -52,26 +55,36 @@ export const AuthContextProvider = (props) => {
         const uid = user.uid;
         // User is signed in
         // ...
-        console.log("User IS logged in!", user)
+        console.log("User IS logged in!", user);
         setUser(user);
       } else {
         // User is signed out
         // ...
         console.log("User is NOT loggin in!");
-        setUser(null)
+        setUser(null);
       }
     });
-  }
+  };
 
-useEffect(() => {
- checkIfUserIsLoggedIn()
-}, [])
+  const logout = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+      alert("Logout successful!");
+    } catch (error) {
+      alert("There was a problem with logging you out!");
+    }
+  };
 
+  useEffect(() => {
+    checkIfUserIsLoggedIn();
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, registerUser, login }}>
+    <AuthContext.Provider
+      value={{ user, setUser, registerUser, login, logout }}
+    >
       {props.children}
     </AuthContext.Provider>
   );
 };
-  
