@@ -13,7 +13,7 @@ const handleEmailChange =(e) => {
 }
 
 const handlePasswordChange =(e) => {
-  setEmail(e.target.value);
+  setPassword(e.target.value);
 }
 
 const handleLoginClick = () => {
