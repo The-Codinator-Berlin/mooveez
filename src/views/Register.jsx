@@ -1,11 +1,10 @@
 import React, { useContext, useState } from "react";
 import "../css/Register.css";
 import { AuthContext } from "../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Register() {
   const { registerUser } = useContext(AuthContext);
-  const { user, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,18 +24,11 @@ function Register() {
   };
 
   const HandleRegisterClick = () => {
-    registerUser(email, password);
-    if (!email.includes("@") | password.length < 6) {
+    if (!email.includes("@") || password.length < 6) {
       alert("Please check email/ Password should be at least 6 characters!")
     } else {
-      alert("Your registration was successful!");
-      login();
+      registerUser(email, password);
     }
-  };
-  const navigateToMooveezOnLog = useNavigate();
-  const login = () => {
-    setUser(user);
-    navigateToMooveezOnLog("/");
   };
 
   return (
