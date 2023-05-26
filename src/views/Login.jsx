@@ -1,11 +1,10 @@
 import React, { useContext, useState } from "react";
 import "../css/LoginRegister.css";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 // TODO Make an alert when user logs in but doesn't have account 
 function Login() {
-  // const { user, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const {login, error} =useContext(AuthContext)
@@ -19,14 +18,9 @@ const handlePasswordChange =(e) => {
 }
 
 const handleLoginClick = () => {
-  // console.log('email, password :>> ', email, password);
   login(email, password);
-  // navigateOnLogin();
 }
-  const navigateToMooveezOnLog = useNavigate();
-  // const navigateOnLogin = () => {
-  //   navigateToMooveezOnLog("/");
-  // };
+  
 
   return (
     <div className="loginBoxContainer">
@@ -47,7 +41,7 @@ const handleLoginClick = () => {
             id="email"
             value ={email}
             onChange={handleEmailChange}
-            className="block w-70 rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset ring-red-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-950 sm:text-sm sm:leading-6"
+            className="block w-80 text-center rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset ring-red-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-950 sm:text-sm sm:leading-6"
             placeholder="Username..."
           />
         </div>
@@ -59,7 +53,7 @@ const handleLoginClick = () => {
             id="password"
             value={password}
             onChange={handlePasswordChange}
-            className="block w-70 rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset ring-red-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-950 sm:text-sm sm:leading-6"
+            className="block w-70 text-center rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-2 ring-inset ring-red-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-950 sm:text-sm sm:leading-6"
             placeholder="Password..."
           />
         </div>
