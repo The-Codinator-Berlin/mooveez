@@ -3,12 +3,12 @@ import "../css/LoginRegister.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
-
+// TODO Make an alert when user logs in but doesn't have account 
 function Login() {
   // const { user, setUser } = useContext(AuthContext);
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const {login} =useContext(AuthContext)
+  const {login, error} =useContext(AuthContext)
 
 const handleEmailChange =(e) => {
   setEmail(e.target.value);
@@ -21,12 +21,12 @@ const handlePasswordChange =(e) => {
 const handleLoginClick = () => {
   // console.log('email, password :>> ', email, password);
   login(email, password);
-  navigateOnLogin();
+  // navigateOnLogin();
 }
   const navigateToMooveezOnLog = useNavigate();
-  const navigateOnLogin = () => {
-    navigateToMooveezOnLog("/");
-  };
+  // const navigateOnLogin = () => {
+  //   navigateToMooveezOnLog("/");
+  // };
 
   return (
     <div className="loginBoxContainer">
@@ -37,6 +37,7 @@ const handleLoginClick = () => {
             <h2 className=" py-4 pb-0 text-blue-600">
               Please login to access features
             </h2>
+            {error && <h1>{error}</h1>}
         </span>
         <br></br>
         <div className="mt-2">
