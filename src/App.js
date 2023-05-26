@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import { app } from "./config/firebaseConfig";
+// import { app } from "./config/firebaseConfig";
 import Mooveez from "./views/Mooveez";
-import Favourites from './views/Favourites'
+import Favourites from "./views/Favourites";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import About from "./views/About";
@@ -11,8 +11,7 @@ import Navigation from "./components/Navigation";
 
 import { MooveezContextProvider } from "./context/MooveezContext";
 import { AuthContextProvider } from "./context/AuthContext";
-
-
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
@@ -25,7 +24,14 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/favourites" element={<Favourites />} />
+            <Route
+              path="/favourites"
+              element={
+                <ProtectedRoute>
+                  <Favourites />
+                </ProtectedRoute>
+              }
+            />
             <Route path="*" element={<Page404 />} />
           </Routes>
         </MooveezContextProvider>
