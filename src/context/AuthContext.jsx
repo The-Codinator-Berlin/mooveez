@@ -6,11 +6,14 @@ import {
   signOut,
 } from "firebase/auth";
 import { auth } from "../config/FirebaseConfig.js";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
 export const AuthContextProvider = (props) => {
+  const navigateToMooveezOnLog= useNavigate()
   const [user, setUser] = useState(null);
+  const [error, setError] = useState(false)
 
   const registerUser = async (email, password) => {
     try {
@@ -23,6 +26,8 @@ export const AuthContextProvider = (props) => {
       console.log("userCrential :>> ", userCredential);
       const user = userCredential.user;
       setUser(user);
+      alert("Your registration was successful!");
+      navigateToMooveezOnLog("/")
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -41,9 +46,14 @@ export const AuthContextProvider = (props) => {
 
       const user = userCredential.user;
       setUser(user);
+      navigateToMooveezOnLog("/")
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
+      // TODO if lese handling of error to check if email is already used or not. 
+      // if(errorCode===400){
+      //   setError("invalid email")
+      // }
       console.log("errorMessage :>> ", errorMessage);
       setUser(null);
     }
@@ -72,6 +82,7 @@ export const AuthContextProvider = (props) => {
       setUser(null);
       alert("Logout successful!");
     } catch (error) {
+      setUser(user)
       alert("There was a problem with logging you out!");
     }
   };
@@ -82,7 +93,7 @@ export const AuthContextProvider = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, registerUser, login, logout }}
+      value={{ user, setUser, registerUser, login, logout, error }}
     >
       {props.children}
     </AuthContext.Provider>
