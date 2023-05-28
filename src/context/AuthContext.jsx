@@ -3,17 +3,19 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { auth } from "../config/FirebaseConfig.js";
+import { auth, provider } from "../config/FirebaseConfig.js";
 import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext();
 
+
 export const AuthContextProvider = (props) => {
-  const navigateToMooveezOnLog= useNavigate()
+  const navigateToMooveezOnLog = useNavigate();
   const [user, setUser] = useState(null);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
 
   const registerUser = async (email, password) => {
     try {
@@ -27,7 +29,7 @@ export const AuthContextProvider = (props) => {
       const user = userCredential.user;
       setUser(user);
       alert("Your registration was successful!");
-      navigateToMooveezOnLog("/")
+      navigateToMooveezOnLog("/");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -46,16 +48,31 @@ export const AuthContextProvider = (props) => {
 
       const user = userCredential.user;
       setUser(user);
-      navigateToMooveezOnLog("/")
+      navigateToMooveezOnLog("/");
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
-      // TODO if lese handling of error to check if email is already used or not. 
+      // TODO if lese handling of error to check if email is already used or not.
       // if(errorCode===400){
       //   setError("invalid email")
       // }
       console.log("errorMessage :>> ", errorMessage);
       setUser(null);
+    }
+  };
+
+  const googleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const name = result.user.displayName;
+      const email = result.user.email;
+      const profilePic = result.user.photoURL;
+
+      localStorage.setItem("name", name);
+      localStorage.setItem("email", email);
+      localStorage.setItem("profilePic", profilePic);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -78,11 +95,11 @@ export const AuthContextProvider = (props) => {
 
   const logout = async () => {
     try {
-      await signOut(auth);
+      await signOut(auth, provider);
       setUser(null);
       alert("Logout successful!");
     } catch (error) {
-      setUser(user)
+      setUser(user);
       alert("There was a problem with logging you out!");
     }
   };
@@ -93,7 +110,7 @@ export const AuthContextProvider = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, setUser, registerUser, login, logout, error }}
+      value={{ user, setUser, registerUser, login, logout, error, googleLogin }}
     >
       {props.children}
     </AuthContext.Provider>
