@@ -40,6 +40,7 @@ function Navigation() {
         {user ? (
           <>
             <h5 className="text-green-500">{user.email} is logged in! </h5>
+            <span><img className="profilePic" src={localStorage.getItem("profilePic")}/></span>
             <Link
               to="/favourites"
               className="text-neutral-50 border-blue-700 rounded bg-green-600 hover:active:bg-red-500 hover:bg-slate-400 favouritesButton"
