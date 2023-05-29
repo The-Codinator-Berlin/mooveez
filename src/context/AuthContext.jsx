@@ -71,6 +71,7 @@ export const AuthContextProvider = (props) => {
       localStorage.setItem("name", name);
       localStorage.setItem("email", email);
       localStorage.setItem("profilePic", profilePic);
+      navigateToMooveezOnLog("/");
     } catch (error) {
       console.log(error);
     }
@@ -103,6 +104,14 @@ export const AuthContextProvider = (props) => {
       alert("There was a problem with logging you out!");
     }
   };
+
+  // const AccessMoreInfoForMooveeWhenLogged = () => {
+  //   if (user) {
+  //     MooveeCardMoreButton()
+  //   } else {
+  //     alert("Please login to access features!");
+  //   }
+  // };
 
   useEffect(() => {
     checkIfUserIsLoggedIn();
