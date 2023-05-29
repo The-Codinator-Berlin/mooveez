@@ -1,13 +1,11 @@
 import React, { useContext, useState } from "react";
-import { auth } from "../config/FirebaseConfig";
 import "../css/LoginRegister.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { useEffect } from "react";
 
 // TODO Make an alert when user logs in but doesn't have account
 function Login() {
-  const [value, setValue] = useState("");
+  
 
   const handleGoogle = () => {
     googleLogin();
