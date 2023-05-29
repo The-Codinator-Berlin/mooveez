@@ -3,13 +3,15 @@ import { AuthContext } from '../context/AuthContext'
 import { Navigate } from 'react-router-dom';
 
 function ProtectedRoute(props) {
-console.log('props :>> ', props);
-    const {user} =useContext(AuthContext)
+  const { user } = useContext(AuthContext)
+  const isUserAuth = user !== null
 
-    const isUserAuth = user !==null ? true : false
-  return (
-    <>{isUserAuth ? props.children : <Navigate to="/login"/>}</>
-  )
+  if (!isUserAuth) {
+    alert('Please login to access features');
+    return <Navigate to="/login" />;
+  }
+
+  return <>{props.children}</>;
 }
 
 export default ProtectedRoute;
