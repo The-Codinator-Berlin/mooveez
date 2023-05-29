@@ -7,8 +7,9 @@ export const MooveezContextProvider = (props) => {
 
   const [mooveez, setMooveez] = useState([]);
 
+
   const getMooveez = async () => {
-    const url = `https://api.themoviedb.org/3/discover/movie?api_key=6b4723f60651331047b0a32019781271`;
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TBBD_API_KEY}`;
 
     try {
       const response = await fetch(url);
@@ -21,7 +22,7 @@ export const MooveezContextProvider = (props) => {
   };
 
   return (
-    <MooveezContext.Provider value={{ mooveez, getMooveez }}>
+    <MooveezContext.Provider value={{ mooveez, getMooveez}}>
       {props.children}
     </MooveezContext.Provider>
   );
