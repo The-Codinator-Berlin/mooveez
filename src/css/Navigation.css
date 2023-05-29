@@ -1,6 +1,7 @@
 .navigation-box{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .navigation-links{
@@ -30,4 +31,11 @@
 
 .favouritesButton{
     width: 6em;
+}
+
+.profilePic{
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    
 }
