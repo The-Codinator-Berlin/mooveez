@@ -65,9 +65,9 @@ function SingleMooveePageCard({ moovee }) {
             mooveeComments.map((comment) => {
               return (
                 <div className="border-2 border-blue-500 mb-2">
-                  <p>User:{comment.author}</p>
-                  <p>Comment:{comment.text}</p>
-                  <p>Date submitted:{comment.date.seconds}</p>
+                  <p><b className="text-red-800">User:</b><span>{comment.author}</span></p>
+                  <p><b className="text-red-800">Comment:</b><span>{comment.text}</span></p>
+                  <p><b className="text-red-800">Date submitted:</b><span>{comment.date.seconds}</span></p>
                 </div>
               );
             })}
@@ -85,7 +85,7 @@ function SingleMooveePageCard({ moovee }) {
         />
       </div>
       <div className="mb-5">
-        <button className="bg-green-500 rounded w-60 h-8">Submit</button>
+        <button className="bg-green-500 rounded w-60 h-8 hover:bg-slate-400">Submit</button>
       </div>
     </div>
   );
