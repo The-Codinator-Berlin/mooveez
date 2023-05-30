@@ -7,11 +7,11 @@ import { useState } from "react";
 
 function Mooveez() {
   const { mooveez, getMooveez } = useContext(MooveezContext);
-  const [searchInput, setSearchInput] = useState("")
-  
-  const  handleSearchInput = (e) => {
-    setSearchInput(e.target.value)
-  }
+  const [searchInput, setSearchInput] = useState("");
+
+  const handleSearchInput = (e) => {
+    setSearchInput(e.target.value);
+  };
 
   const filteredMooveez = mooveez.filter((moovee) =>
     moovee.title.toLowerCase().includes(searchInput.toLowerCase())
@@ -19,7 +19,7 @@ function Mooveez() {
 
   useEffect(() => {
     getMooveez();
-  });
+  }, []);
 
   return (
     <div className="homeDiv bg-neutral-900 text-neutral-50">
