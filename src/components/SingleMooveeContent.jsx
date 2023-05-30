@@ -11,19 +11,22 @@ function SingleMooveePageCard({ moovee }) {
     setTextAreaInput(e.target.value);
   };
 
-  const [mooveeComments, setMooveeComments] = useState([])
-  
-  const  getMooveeComments = async () => {
+  const [mooveeComments, setMooveeComments] = useState([]);
+
+  const getMooveeComments = async () => {
     const querySnapshot = await getDocs(collection(db, "Comment"));
+    const commentsArray = [];
     querySnapshot.forEach((doc) => {
       console.log(`${doc.id} => ${doc.data()}`);
+      commentsArray.push(doc.data());
     });
-    
-  }
+    console.log('commentsArray :>> ', commentsArray);
+    setMooveeComments(commentsArray);
+  };
   useEffect(() => {
     getMooveeComments();
-  }, [])
-  
+  }, []);
+
   return (
     <div className="text-white font-light border-2 rounded border-blue-950">
       <div className="flex justify-around m-4">
@@ -57,8 +60,16 @@ function SingleMooveePageCard({ moovee }) {
       </div>
       <div className="flex-col h-80 w-100 displayComments py-6 bg-blue-600 text-black">
         <h2 className="font-bold mb-3">Feel free to leave a comment!</h2>
-        <h4> Test hard coded comment 1</h4>
-        <h4>Test hard coded comment 2</h4>
+        <div>{mooveeComments && mooveeComments.map((comment) => {
+        return(
+            <div className="border-2 border-blue-500 mb-2">
+              <p>{comment.text}</p>
+              <p>{comment.author}</p>
+              <p>{comment.date.seconds}</p>
+            </div>
+          )
+        })}
+        </div>
       </div>
       <div className="m-6 border-2 border-red-600 rounded w-100">
         <input
