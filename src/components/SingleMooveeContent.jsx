@@ -20,7 +20,7 @@ function SingleMooveePageCard({ moovee }) {
       console.log(`${doc.id} => ${doc.data()}`);
       commentsArray.push(doc.data());
     });
-    console.log('commentsArray :>> ', commentsArray);
+    console.log("commentsArray :>> ", commentsArray);
     setMooveeComments(commentsArray);
   };
   useEffect(() => {
@@ -60,15 +60,17 @@ function SingleMooveePageCard({ moovee }) {
       </div>
       <div className="flex-col h-80 w-100 displayComments py-6 bg-blue-600 text-black">
         <h2 className="font-bold mb-3">Feel free to leave a comment!</h2>
-        <div>{mooveeComments && mooveeComments.map((comment) => {
-        return(
-            <div className="border-2 border-blue-500 mb-2">
-              <p>{comment.text}</p>
-              <p>{comment.author}</p>
-              <p>{comment.date.seconds}</p>
-            </div>
-          )
-        })}
+        <div>
+          {mooveeComments &&
+            mooveeComments.map((comment) => {
+              return (
+                <div className="border-2 border-blue-500 mb-2">
+                  <p>User:{comment.author}</p>
+                  <p>Comment:{comment.text}</p>
+                  <p>Date submitted:{comment.date.seconds}</p>
+                </div>
+              );
+            })}
         </div>
       </div>
       <div className="m-6 border-2 border-red-600 rounded w-100">
