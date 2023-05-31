@@ -11,6 +11,10 @@ function SingleMooveePageCard({ moovee }) {
     setTextAreaInput(e.target.value);
   };
 
+  const handleSubmitButtonClick = () => {
+    console.log('TextAreaInput :>> ', TextAreaInput);
+  };
+
   const [mooveeComments, setMooveeComments] = useState([]);
 
   const getMooveeComments = async () => {
@@ -27,14 +31,13 @@ function SingleMooveePageCard({ moovee }) {
   const transformDate = (seconds) => {
     // const date = new Date(seconds * 1000).toLocaleString();
     const intnationalDateConversion = new Intl.DateTimeFormat("de", {
-      
-      day:"2-digit",
+      day: "2-digit",
       month: "2-digit",
       year: "2-digit",
       hour: "2-digit",
       minute: "2-digit",
     }).format(seconds);
-    console.log('internationalDateConversion :>> ', intnationalDateConversion);
+    console.log("internationalDateConversion :>> ", intnationalDateConversion);
     return intnationalDateConversion;
   };
 
@@ -77,9 +80,9 @@ function SingleMooveePageCard({ moovee }) {
         <h2 className="font-bold mb-3">Feel free to leave a comment!</h2>
         <div>
           {mooveeComments &&
-            mooveeComments.map((comment) => {
+            mooveeComments.map((comment, index) => {
               return (
-                <div className="border-2 border-blue-500 mb-2">
+                <div className="border-2 border-blue-500 mb-2" key={index}>
                   <p>
                     <b className="text-red-800">User:</b>
                     <span>{comment.author}</span>
@@ -109,7 +112,10 @@ function SingleMooveePageCard({ moovee }) {
         />
       </div>
       <div className="mb-5">
-        <button className="bg-green-500 rounded w-60 h-8 hover:bg-slate-400">
+        <button
+          className="bg-green-500 rounded w-60 h-8 hover:bg-slate-400"
+          onClick={handleSubmitButtonClick}
+        >
           Submit
         </button>
       </div>
