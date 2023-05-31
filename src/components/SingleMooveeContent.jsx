@@ -1,4 +1,11 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { db } from "../config/FirebaseConfig";
 import { AuthContext } from "../context/AuthContext";
@@ -19,7 +26,7 @@ function SingleMooveePageCard({ moovee }) {
       text: TextAreaInput,
       date: new Date(),
     };
-    const docRef = await addDoc(collection(db, "Comment"), {});
+    const docRef = await addDoc(collection(db, "Comment"), commentObject);
     console.log("Document written with ID: ", docRef.id);
   };
 
@@ -34,6 +41,17 @@ function SingleMooveePageCard({ moovee }) {
     });
     // console.log("commentsArray :>> ", commentsArray);
     setMooveeComments(commentsArray);
+  };
+
+  const getCommentsRealTime = () => {
+    const q = query(collection(db, "Comments"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const commentsArray = [];
+      querySnapshot.forEach((doc) => {
+        commentsArray.push(doc.data());
+      });
+      setMooveeComments(commentsArray);
+    });
   };
 
   const transformDate = (seconds) => {
@@ -51,6 +69,7 @@ function SingleMooveePageCard({ moovee }) {
 
   useEffect(() => {
     getMooveeComments();
+    getCommentsRealTime()
   }, []);
 
   return (
