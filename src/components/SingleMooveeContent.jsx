@@ -1,18 +1,26 @@
-import { collection, getDocs } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import { addDoc, collection, getDocs } from "firebase/firestore";
+import React, { useContext, useEffect, useState } from "react";
 import { db } from "../config/FirebaseConfig";
+import { AuthContext } from "../context/AuthContext";
 
 function SingleMooveePageCard({ moovee }) {
   const imgPath = "https://image.tmdb.org/t/p/original";
   const [TextAreaInput, setTextAreaInput] = useState("");
-
+  const { user } = useContext(AuthContext);
   const HandleTextAreaInput = (e) => {
     console.log("e.target.value :>> ", e.target.value);
     setTextAreaInput(e.target.value);
   };
 
-  const handleSubmitButtonClick = () => {
-    console.log('TextAreaInput :>> ', TextAreaInput);
+  const handleSubmitButtonClick = async () => {
+    console.log("TextAreaInput :>> ", TextAreaInput);
+    const commentObject = {
+      author: user.email,
+      text: TextAreaInput,
+      date: new Date(),
+    };
+    const docRef = await addDoc(collection(db, "Comment"), {});
+    console.log("Document written with ID: ", docRef.id);
   };
 
   const [mooveeComments, setMooveeComments] = useState([]);
