@@ -20,9 +20,24 @@ function SingleMooveePageCard({ moovee }) {
       console.log(`${doc.id} => ${doc.data()}`);
       commentsArray.push(doc.data());
     });
-    console.log("commentsArray :>> ", commentsArray);
+    // console.log("commentsArray :>> ", commentsArray);
     setMooveeComments(commentsArray);
   };
+
+  const transformDate = (seconds) => {
+    // const date = new Date(seconds * 1000).toLocaleString();
+    const intnationalDateConversion = new Intl.DateTimeFormat("de", {
+      
+      day:"2-digit",
+      month: "2-digit",
+      year: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(seconds);
+    console.log('internationalDateConversion :>> ', intnationalDateConversion);
+    return intnationalDateConversion;
+  };
+
   useEffect(() => {
     getMooveeComments();
   }, []);
@@ -65,9 +80,18 @@ function SingleMooveePageCard({ moovee }) {
             mooveeComments.map((comment) => {
               return (
                 <div className="border-2 border-blue-500 mb-2">
-                  <p><b className="text-red-800">User:</b><span>{comment.author}</span></p>
-                  <p><b className="text-red-800">Comment:</b><span>{comment.text}</span></p>
-                  <p><b className="text-red-800">Date submitted:</b><span>{comment.date.seconds}</span></p>
+                  <p>
+                    <b className="text-red-800">User:</b>
+                    <span>{comment.author}</span>
+                  </p>
+                  <p>
+                    <b className="text-red-800">Comment:</b>
+                    <span>{comment.text}</span>
+                  </p>
+                  <p>
+                    <b className="text-red-800">Date submitted:</b>
+                    <span>{transformDate(comment.date.seconds * 1000)}</span>
+                  </p>
                 </div>
               );
             })}
@@ -85,7 +109,9 @@ function SingleMooveePageCard({ moovee }) {
         />
       </div>
       <div className="mb-5">
-        <button className="bg-green-500 rounded w-60 h-8 hover:bg-slate-400">Submit</button>
+        <button className="bg-green-500 rounded w-60 h-8 hover:bg-slate-400">
+          Submit
+        </button>
       </div>
     </div>
   );
