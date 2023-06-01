@@ -1,17 +1,21 @@
-import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import React, { useContext } from "react";
 import "../css/Navigation.css";
 import { AuthContext } from "../context/AuthContext";
 
 function Navigation() {
   const { user, logout } = useContext(AuthContext);
 
+  /* //SECTION -------------------------------------------------------------------------------------------------------------> */
+  //NOTE - logot function called from AuthContext via button onClick function handleLogoutUser
   const handleLogoutUser = () => {
     logout();
   };
 
   return (
     <>
+      {" "}
+      {/* //SECTION ----------------------------------------------Navbar----------------------------------------------------> */}
       <nav className="navigation-box border-b	border-blue-700 h-10 bg-blue-950 p-2">
         <Link
           to="/"
@@ -25,6 +29,8 @@ function Navigation() {
         >
           About
         </Link>
+        {/*//SECTION ------------------------------------------------------------------------------------------------------->
+         */}
         {/* //NOTE - Leaving here for further dvelopment for name input */}
         {/* <span> */}
         {/* {" "} */}
@@ -37,6 +43,9 @@ function Navigation() {
           )} */}
         {/* </span> */}
 
+        {/* //SECTION - // ------------------------------------------------------------------------------------------------>
+         */}
+        {/* //NOTE - Is user logged in? If so it shows users email in the Navbar, displays Favouites nav link, and Logout link, otherwise only Mooveez, about and Login/Register */}
         {user ? (
           <>
             <h5 className="text-green-500">{user.email} is logged in! </h5>
@@ -61,7 +70,7 @@ function Navigation() {
               to="/"
               className="text-neutral-50 border-blue-700 rounded bg-red-500 hover:active:bg-red-500 hover:bg-slate-400 logOutButton"
             >
-              Log out{" "}
+              Logout{" "}
             </Link>
           </>
         ) : (
@@ -72,13 +81,6 @@ function Navigation() {
             Login/Register
           </Link>
         )}
-
-        {/* <Link
-         to="/login/register"
-          className="bg-red-500	rounded text-neutral-50 navigation-link-login hover:active:bg-green-600 hover:bg-slate-400 loginButton "
-        >
-          Login/Register
-        </Link> */}
       </nav>
     </>
   );
