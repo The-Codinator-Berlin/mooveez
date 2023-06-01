@@ -1,4 +1,5 @@
 import {
+  arrayRemove,
   arrayUnion,
   doc,
   getDoc,
@@ -10,6 +11,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { db } from "../config/FirebaseConfig";
 import { AuthContext } from "../context/AuthContext";
 
+// ------------------------------------------------------------------------------------------------------>
+
+//SECTION - Main function that is content into singleMooveePage
 function SingleMooveePageCard({ moovee }) {
   const imgPath = "https://image.tmdb.org/t/p/original";
   const [textAreaInput, setTextAreaInput] = useState("");
@@ -88,8 +92,6 @@ function SingleMooveePageCard({ moovee }) {
 
   // ------------------------------------------------------------------------------------------------------>
 
-  const HandleDeleteByUser = () => {};
-
   //SECTION - Transforming date with JS fucntion
 
   const transformDate = (seconds) => {
@@ -100,24 +102,45 @@ function SingleMooveePageCard({ moovee }) {
       hour: "2-digit",
       minute: "2-digit",
     }).format(seconds);
-    console.log("internationalDateConversion :>> ", intnationalDateConversion);
     return intnationalDateConversion;
   };
 
   // ------------------------------------------------------------------------------------------------------>
+
+  //SECTION - This function finds the document that matches the mooveeId and converts to string (If not a string, vecause it's a number it would throw an error otherwise). The find() method returns the value of the first element in the array and returns only the comment that the date in nanoseconds matches between what is in firestore and also in the front end. Next it updats the document by removing it and if not throws an error.
+  const HandleDeleteByUser = async (comment) => {
+    if (comment.author === user.email) {
+      try {
+        const documentReferemce = doc(db, "Comment", moovee.id.toString());
+        const docSnap = await getDoc(documentReferemce);
+        const commentsArray = docSnap.data().comments;
+        const messageToDelete = commentsArray.find((singleStoredComment) => {
+          return (
+            singleStoredComment.date.nanoseconds === comment.date.nanoseconds
+          );
+        });
+        await updateDoc(documentReferemce, {
+          comments: arrayRemove(messageToDelete),
+        });
+        console.log("Comment deleted!");
+      } catch (error) {
+        console.log("error :>> ", error);
+        console.log("Unable to delete comment!");
+      }
+    }
+  };
 
   //SECTION - functions called in UseEffect so when page loads all comments that are relevalnt to a moovee with a specific ID will load
 
   useEffect(() => {
     //NOTE - Left commented in reference to pre-transformed getCommentsRealTime();
     // getSingleMooveeComment();
-    getCommentsRealTime();
+    getCommentsRealTime(HandleDeleteByUser);
   }, []);
 
   return (
-    //SECTION - Below is everything that is being displayed on the SingleMoveePage
+    //SECTION - Below is everything that is being rendered and displayed on the SingleMoveePage using data from the API
     <div className="text-neutral-50 font-light border-2 rounded border-blue-950">
-      {console.log("singleMooveeCommentArr in JSX", singleMooveeCommentArr)}
       <div className="flex justify-around m-4">
         <div className="flex-col justify-items-center">
           <h1 className="text-5xl text-red-600 font-light mt-8">
@@ -138,7 +161,9 @@ function SingleMooveePageCard({ moovee }) {
             )}
           </div>
           <div>
-            <h6 className="font-light">Release date: {moovee.release_date}</h6>
+            <h6 className="font-light text-red-500">
+              Release date: {moovee.release_date}
+            </h6>
             <div className="flex justify-center pt-3">
               <h6 className="bg-green-500 w-12 rounded">
                 {moovee.vote_average}
@@ -150,11 +175,12 @@ function SingleMooveePageCard({ moovee }) {
       <div className="flex-col w-100 displayComments py-20 bg-neutral-900 text-neutral-50">
         <h2 className="font-bold mb-3">Feel free to leave a comment!</h2>
         <div>
+          {/* //NOTE - This checks if singleMooveeCommentArr has anything in it and if it does it maps over it and then bounces the information up to HandleDeleteByUser function so that it can be used in the function to delete a comment. */}
           {singleMooveeCommentArr &&
             singleMooveeCommentArr.map((comment, index) => {
               return (
                 <div
-                  className="border-t-2 border-b-2 border-blue-700 mb-2 py-4"
+                  className="border-t-2 border-b-2 mx-6 border-blue-700 mb-2 py-4"
                   key={index}
                 >
                   <p>
@@ -169,12 +195,15 @@ function SingleMooveePageCard({ moovee }) {
                     <b className="text-red-600">Date submitted:</b>&nbsp;
                     <span>{transformDate(comment.date?.seconds * 1000)}</span>
                   </p>
-                  <span
-                    onClick={HandleDeleteByUser}
-                    className="material-symbols-outlined hover:text-red-600 active:text-blue-500"
-                  >
-                    delete
-                  </span>
+                  {/* //NOTE - This checks if there is a user logged in with an email that is the same as the person that commented (who also has an email, if so the delete bin is displayed only for that user) */}
+                  {user?.email === comment.author && (
+                    <button
+                      onClick={() => HandleDeleteByUser(comment)}
+                      className="material-symbols-outlined hover:text-red-600 active:text-blue-500"
+                    >
+                      delete
+                    </button>
+                  )}
                 </div>
               );
             })}
