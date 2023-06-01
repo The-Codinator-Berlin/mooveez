@@ -1,10 +1,10 @@
 import {
-  addDoc,
-  collection,
-  getDocs,
+  arrayUnion,
+  doc,
+  getDoc,
   onSnapshot,
-  query,
-  where,
+  setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { db } from "../config/FirebaseConfig";
@@ -12,50 +12,85 @@ import { AuthContext } from "../context/AuthContext";
 
 function SingleMooveePageCard({ moovee }) {
   const imgPath = "https://image.tmdb.org/t/p/original";
-  const [TextAreaInput, setTextAreaInput] = useState("");
+  const [textAreaInput, setTextAreaInput] = useState("");
+  const [singleMooveeCommentArr, setSingleMooveeCommentArr] = useState([]);
   const { user } = useContext(AuthContext);
+
+  // ------------------------------------------------------------------------------------------------------>
+
+  //SECTION - Comments section (textArea) function handling
   const HandleTextAreaInput = (e) => {
     console.log("e.target.value :>> ", e.target.value);
     setTextAreaInput(e.target.value);
   };
 
-  const handleSubmitButtonClick = async () => {
-    console.log("TextAreaInput :>> ", TextAreaInput);
+  // ------------------------------------------------------------------------------------------------------>
+
+  //SECTION - Hanldling connection between when the submit button is clicked and the comment being created in Firebase and set with a unique ID that is also the ID of a specific moovee
+  const handleSubmitClickWithId = async () => {
     const commentObject = {
       author: user.email,
-      text: TextAreaInput,
+      text: textAreaInput,
       date: new Date(),
     };
-    const docRef = await addDoc(collection(db, "Comment"), commentObject);
-    console.log("Document written with ID: ", docRef.id);
+    try {
+      const docRef = doc(db, "Comment", moovee.id.toString());
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const updateDocument = await updateDoc(docRef, {
+          comments: arrayUnion(commentObject),
+        });
+        setTextAreaInput("");
+        console.log("Document updated: ", docRef);
+      } else {
+        await setDoc(doc(db, "Comment", moovee.id.toString()), {
+          comments: [commentObject],
+        });
+        setTextAreaInput("");
+
+        console.log("document created>>");
+      }
+    } catch (error) {
+      console.log("error :>> ", error);
+    }
   };
 
-  const [mooveeComments, setMooveeComments] = useState([]);
+  // ------------------------------------------------------------------------------------------------------>
 
-  const getMooveeComments = async () => {
-    const querySnapshot = await getDocs(collection(db, "Comment"));
-    const commentsArray = [];
-    querySnapshot.forEach((doc) => {
-      console.log(`${doc.id} => ${doc.data()}`);
-      commentsArray.push(doc.data());
-    });
-    // console.log("commentsArray :>> ", commentsArray);
-    setMooveeComments(commentsArray);
-  };
+  //SECTION -  ORIGINAL pre-transformed function finding Comment collection and  assigning document (just one) that matches the moovee id
 
+  // const getSingleMooveeComment = async () => {
+  //   const docRef = doc(db, "Comment", moovee.id.toString());
+  //   try {
+  //     const singleMoovee = await getDoc(docRef);
+  //     const singleMooveeCommentArr = [];
+  //     if (singleMoovee.data().comments) {
+  //       setSingleMooveeCommentArr(singleMoovee.data().comments);
+  //     }
+  //   } catch (error) {
+  //     console.log("error :>> ", error);
+  //   }
+  // };
+
+  // ------------------------------------------------------------------------------------------------------>
+
+  //SECTION - Updating comments added to DOM in realtime
   const getCommentsRealTime = () => {
-    const q = query(collection(db, "Comments"));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const commentsArray = [];
-      querySnapshot.forEach((doc) => {
-        commentsArray.push(doc.data());
-      });
-      setMooveeComments(commentsArray);
-    });
+    const liveCommentDisplay = onSnapshot(
+      doc(db, "Comment", moovee.id.toString()),
+      (doc) => {
+        if (doc.data()?.comments) {
+          setSingleMooveeCommentArr(doc.data().comments);
+        }
+      }
+    );
   };
+
+  // ------------------------------------------------------------------------------------------------------>
+
+  //SECTION - Transforming date with JS fucntion
 
   const transformDate = (seconds) => {
-    // const date = new Date(seconds * 1000).toLocaleString();
     const intnationalDateConversion = new Intl.DateTimeFormat("de", {
       day: "2-digit",
       month: "2-digit",
@@ -67,13 +102,20 @@ function SingleMooveePageCard({ moovee }) {
     return intnationalDateConversion;
   };
 
+  // ------------------------------------------------------------------------------------------------------>
+
+  //SECTION - functions called in UseEffect so when page loads all comments that are relevalnt to a moovee with a specific ID will load
+
   useEffect(() => {
-    getMooveeComments();
-    getCommentsRealTime()
+    //NOTE - Left commented in reference to pre-transformed getCommentsRealTime();
+    // getSingleMooveeComment();
+    getCommentsRealTime();
   }, []);
 
   return (
-    <div className="text-white font-light border-2 rounded border-blue-950">
+    //SECTION - Below is everything that is being displayed on the SingleMoveePage
+    <div className="text-neutral-50 font-light border-2 rounded border-blue-950">
+      {console.log("singleMooveeCommentArr in JSX", singleMooveeCommentArr)}
       <div className="flex justify-around m-4">
         <div className="flex-col justify-items-center">
           <h1 className="text-5xl text-red-600 font-light mt-8">
@@ -103,24 +145,27 @@ function SingleMooveePageCard({ moovee }) {
           </div>
         </div>
       </div>
-      <div className="flex-col h-80 w-100 displayComments py-6 bg-blue-600 text-black">
+      <div className="flex-col w-100 displayComments py-20 bg-neutral-900 text-neutral-50">
         <h2 className="font-bold mb-3">Feel free to leave a comment!</h2>
         <div>
-          {mooveeComments &&
-            mooveeComments.map((comment, index) => {
+          {singleMooveeCommentArr &&
+            singleMooveeCommentArr.map((comment, index) => {
               return (
-                <div className="border-2 border-blue-500 mb-2" key={index}>
+                <div
+                  className="border-t-2 border-b-2 border-blue-700 mb-2"
+                  key={index}
+                >
                   <p>
-                    <b className="text-red-800">User:</b>
+                    <b className="text-red-600">User:</b>&nbsp;
                     <span>{comment.author}</span>
                   </p>
                   <p>
-                    <b className="text-red-800">Comment:</b>
+                    <b className="text-red-600">Comment:</b>&nbsp;
                     <span>{comment.text}</span>
                   </p>
                   <p>
-                    <b className="text-red-800">Date submitted:</b>
-                    <span>{transformDate(comment.date.seconds * 1000)}</span>
+                    <b className="text-red-600">Date submitted:</b>&nbsp;
+                    <span>{transformDate(comment.date?.seconds * 1000)}</span>
                   </p>
                 </div>
               );
@@ -133,7 +178,7 @@ function SingleMooveePageCard({ moovee }) {
           type="textarea"
           name="textValue"
           id="text"
-          value={TextAreaInput}
+          value={textAreaInput}
           onChange={HandleTextAreaInput}
           placeholder="Type your comment here and click the green button below to submit it!"
         />
@@ -141,7 +186,7 @@ function SingleMooveePageCard({ moovee }) {
       <div className="mb-5">
         <button
           className="bg-green-500 rounded w-60 h-8 hover:bg-slate-400"
-          onClick={handleSubmitButtonClick}
+          onClick={handleSubmitClickWithId}
         >
           Submit
         </button>
