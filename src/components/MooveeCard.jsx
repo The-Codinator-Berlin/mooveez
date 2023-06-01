@@ -2,17 +2,23 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
+/* //SECTION ---------------------------------------------------------------------------------------------------------------> */
+//NOTE - Moovee cards populated pulling data from API via props {moovee} from filteredMooveez
+
 function MoveeCard({ moovee }) {
+  //NOTE - imgPath used as poster img only contains half of URL uniquie to that film.
   const imgPath = "https://image.tmdb.org/t/p/original";
   const toSingleMooveePage = useNavigate();
   const { user } = useContext(AuthContext);
 
+  /* //SECTION -------------------------------------------------------------------------------------------------------------> */
+  //NOTE - This function navigates user to unique page for each moovee using endpoint from API
   const handleNavigatetoSingleMooveePage = (e) => {
-    console.log(e.target.value);
-
     toSingleMooveePage(`/movies/${moovee.id}`);
   };
 
+  //SECTION ----------------------------------------------------------------------------------------------------------------->
+  //NOTE - Below renders moovee poster, title, more button and favourites button only if user logged in
   return (
     <div>
       <div className="moveeCard">
@@ -37,9 +43,15 @@ function MoveeCard({ moovee }) {
         More +
       </button>
       <br></br>
-      {user && <span className="material-symbols-outlined"><button className="hover:text-green-600 active:text-blue-500 rounded-full py-1">favorite</button></span>}
+      {user && (
+        <span className="material-symbols-outlined">
+          <button className="hover:text-green-600 active:text-blue-500 rounded-full py-1">
+            favorite
+          </button>
+        </span>
+      )}
     </div>
   );
 }
-
+// -------------------------------------------------------------------------------------------------------------------------->
 export default MoveeCard;
