@@ -13,7 +13,7 @@ function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, error, googleLogin } = useContext(AuthContext);
+  const { login, error, googleLogin, } = useContext(AuthContext);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -24,7 +24,12 @@ function Login() {
   };
 
   const handleLoginClick = () => {
-    login(email, password);
+    if (!email.includes("@") || password.length < 6) {
+      alert("Please check email/ Password should be at least 6 characters!")
+    } else {
+      
+      login(email, password);
+    }
   };
   
 
