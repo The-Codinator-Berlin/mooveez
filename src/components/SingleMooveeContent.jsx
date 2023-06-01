@@ -27,7 +27,7 @@ function SingleMooveePageCard({ moovee }) {
   // ------------------------------------------------------------------------------------------------------>
 
   //SECTION - Hanldling connection between when the submit button is clicked and the comment being created in Firebase and set with a unique ID that is also the ID of a specific moovee
-  const handleSubmitClickWithId = async () => {
+  const HandleSubmitClickWithId = async () => {
     const commentObject = {
       author: user.email,
       text: textAreaInput,
@@ -87,6 +87,8 @@ function SingleMooveePageCard({ moovee }) {
   };
 
   // ------------------------------------------------------------------------------------------------------>
+
+  const HandleDeleteByUser = () => {};
 
   //SECTION - Transforming date with JS fucntion
 
@@ -152,7 +154,7 @@ function SingleMooveePageCard({ moovee }) {
             singleMooveeCommentArr.map((comment, index) => {
               return (
                 <div
-                  className="border-t-2 border-b-2 border-blue-700 mb-2"
+                  className="border-t-2 border-b-2 border-blue-700 mb-2 py-4"
                   key={index}
                 >
                   <p>
@@ -167,6 +169,12 @@ function SingleMooveePageCard({ moovee }) {
                     <b className="text-red-600">Date submitted:</b>&nbsp;
                     <span>{transformDate(comment.date?.seconds * 1000)}</span>
                   </p>
+                  <span
+                    onClick={HandleDeleteByUser}
+                    className="material-symbols-outlined hover:text-red-600 active:text-blue-500"
+                  >
+                    delete
+                  </span>
                 </div>
               );
             })}
@@ -186,7 +194,7 @@ function SingleMooveePageCard({ moovee }) {
       <div className="mb-5">
         <button
           className="bg-green-500 rounded w-60 h-8 hover:bg-slate-400"
-          onClick={handleSubmitClickWithId}
+          onClick={HandleSubmitClickWithId}
         >
           Submit
         </button>
