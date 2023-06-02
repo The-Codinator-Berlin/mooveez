@@ -13,7 +13,7 @@ import { AuthContext } from "../context/AuthContext";
 
 // ------------------------------------------------------------------------------------------------------>
 
-//SECTION - Main function that is content into singleMooveePage
+//SECTION - Main function that is injected into singleMooveePage
 function SingleMooveePageCard({ moovee }) {
   const imgPath = "https://image.tmdb.org/t/p/original";
   const [textAreaInput, setTextAreaInput] = useState("");
@@ -32,23 +32,23 @@ function SingleMooveePageCard({ moovee }) {
 
   //SECTION - Hanldling connection between when the submit button is clicked and the comment being created in Firebase and set with a unique ID that is also the ID of a specific moovee
   const HandleSubmitClickWithId = async () => {
-    const commentObject = {
+    const SingleMooveeCommentsObject = {
       author: user.email,
       text: textAreaInput,
       date: new Date(),
     };
     try {
-      const docRef = doc(db, "Comment", moovee.id.toString());
+      const docRef = doc(db, "MooveeComments", moovee.id.toString());
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         const updateDocument = await updateDoc(docRef, {
-          comments: arrayUnion(commentObject),
+          SingleMooveeComments: arrayUnion(SingleMooveeCommentsObject),
         });
         setTextAreaInput("");
         console.log("Document updated: ", docRef);
       } else {
-        await setDoc(doc(db, "Comment", moovee.id.toString()), {
-          comments: [commentObject],
+        await setDoc(doc(db, "MooveeComments", moovee.id.toString()), {
+          SingleMooveeComments: [SingleMooveeCommentsObject],
         });
         setTextAreaInput("");
 
@@ -81,10 +81,10 @@ function SingleMooveePageCard({ moovee }) {
   //SECTION - Updating comments added to DOM in realtime
   const getCommentsRealTime = () => {
     const liveCommentDisplay = onSnapshot(
-      doc(db, "Comment", moovee.id.toString()),
+      doc(db, "MooveeComments", moovee.id.toString()),
       (doc) => {
-        if (doc.data()?.comments) {
-          setSingleMooveeCommentArr(doc.data().comments);
+        if (doc.data()?.SingleMooveeComments) {
+          setSingleMooveeCommentArr(doc.data().SingleMooveeComments);
         }
       }
     );
@@ -108,19 +108,24 @@ function SingleMooveePageCard({ moovee }) {
   // ------------------------------------------------------------------------------------------------------>
 
   //SECTION - This function finds the document that matches the mooveeId and converts to string (If not a string, vecause it's a number it would throw an error otherwise). The find() method returns the value of the first element in the array and returns only the comment that the date in nanoseconds matches between what is in firestore and also in the front end. Next it updats the document by removing it and if not throws an error.
-  const HandleDeleteByUser = async (comment) => {
-    if (comment.author === user.email) {
+  const HandleDeleteByUser = async (singularComment) => {
+    if (singularComment.author === user.email) {
       try {
-        const documentReferemce = doc(db, "Comment", moovee.id.toString());
+        const documentReferemce = doc(
+          db,
+          "MooveeComments",
+          moovee.id.toString()
+        );
         const docSnap = await getDoc(documentReferemce);
-        const commentsArray = docSnap.data().comments;
+        const commentsArray = docSnap.data().SingleMooveeComments;
         const messageToDelete = commentsArray.find((singleStoredComment) => {
           return (
-            singleStoredComment.date.nanoseconds === comment.date.nanoseconds
+            singleStoredComment.date.nanoseconds ===
+            singularComment.date.nanoseconds
           );
         });
         await updateDoc(documentReferemce, {
-          comments: arrayRemove(messageToDelete),
+          SingleMooveeComments: arrayRemove(messageToDelete),
         });
         console.log("Comment deleted!");
       } catch (error) {
@@ -177,7 +182,7 @@ function SingleMooveePageCard({ moovee }) {
         <div>
           {/* //NOTE - This checks if singleMooveeCommentArr has anything in it and if it does it maps over it and then bounces the information up to HandleDeleteByUser function so that it can be used in the function to delete a comment. */}
           {singleMooveeCommentArr &&
-            singleMooveeCommentArr.map((comment, index) => {
+            singleMooveeCommentArr.map((singularComment, index) => {
               return (
                 <div
                   className="border-t-2 border-b-2 mx-6 border-blue-700 mb-2 py-4"
@@ -185,20 +190,22 @@ function SingleMooveePageCard({ moovee }) {
                 >
                   <p>
                     <b className="text-red-600">User:</b>&nbsp;
-                    <span>{comment.author}</span>
+                    <span>{singularComment.author}</span>
                   </p>
                   <p>
                     <b className="text-red-600">Comment:</b>&nbsp;
-                    <span>{comment.text}</span>
+                    <span>{singularComment.text}</span>
                   </p>
                   <p>
                     <b className="text-red-600">Date submitted:</b>&nbsp;
-                    <span>{transformDate(comment.date?.seconds * 1000)}</span>
+                    <span>
+                      {transformDate(singularComment.date?.seconds * 1000)}
+                    </span>
                   </p>
                   {/* //NOTE - This checks if there is a user logged in with an email that is the same as the person that commented (who also has an email, if so the delete bin is displayed only for that user) */}
-                  {user?.email === comment.author && (
+                  {user?.email === singularComment.author && (
                     <button
-                      onClick={() => HandleDeleteByUser(comment)}
+                      onClick={() => HandleDeleteByUser(singularComment)}
                       className="material-symbols-outlined hover:text-red-600 active:text-blue-500"
                     >
                       delete
