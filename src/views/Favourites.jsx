@@ -2,6 +2,7 @@ import React from "react";
 
 //SECTION ---------------------------------------------------------------------------->
 //NOTE - This function displays the headings on the Favouites page (protected route)
+//This also need further development!!
 
 function Favourites() {
   return (
