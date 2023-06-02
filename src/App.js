@@ -3,12 +3,12 @@ import "./App.css";
 // import { app } from "./config/FirebaseConfig";
 import Mooveez from "./views/Mooveez";
 import Favourites from "./views/Favourites";
-import Login from "./views/Login";
+import LoginPage from "./views/Login";
 import Register from "./views/Register";
 import About from "./views/About";
 import Page404 from "./views/Page404";
 import Navigation from "./components/Navigation";
-import SingleMooveePage from "./views/SingleMooveePage"
+import SingleMooveePage from "./views/SingleMooveePage";
 
 import { MooveezContextProvider } from "./context/MooveezContext";
 import { AuthContextProvider } from "./context/AuthContext";
@@ -22,7 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Mooveez />} />
             <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<Register />} />
             <Route
               path="/favourites"
