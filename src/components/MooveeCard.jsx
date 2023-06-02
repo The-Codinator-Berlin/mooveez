@@ -43,6 +43,7 @@ function MoveeCard({ moovee }) {
         More +
       </button>
       <br></br>
+      {/*//NOTE - Only if user is true will the favouites button appear/ Further development needed!!*/}
       {user && (
         <span className="material-symbols-outlined">
           <button className="hover:text-green-600 active:text-blue-500 rounded-full py-1">
