@@ -1,25 +1,48 @@
 import React, { useContext, useState } from "react";
-import "../css/LoginRegister.css";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import "../css/LoginRegister.css";
 
-// TODO Make an alert when user logs in but doesn't have account
+//SECTION ------------------------------------------------------------------------------------------------------------------------------------------->
+//NOTE - LoginPage function
+
 function LoginPage() {
-  const handleGoogle = () => {
-    googleLogin();
-  };
+  //SECTION ----------------------------------------------------------------------------------------------------------------------------------------->
+  //NOTE - States set and functions given access to from from AuthContext
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { Login, error, googleLogin } = useContext(AuthContext);
 
+  // ------------------------------------------------------------------------------------------------------------------------------------------------>
+
+  //NOTE - handles google login button and calls the googleLogin fucntion from authContext
+  const handleGoogle = () => {
+    googleLogin();
+  };
+
+  // ------------------------------------------------------------------------------------------------------------------------------------------------>
+
+  //SECTION ----------------------------------------------------------------------------------------------------------------------------------------->
+  //NOTE - handleEmailChange function is listening to input for email and saving the input value state in a variable
+
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
 
+  // ------------------------------------------------------------------------------------------------------------------------------------------------>
+
+  //SECTION ----------------------------------------------------------------------------------------------------------------------------------------->
+  //NOTE - handlePasswordChange function is listening to input for password and saving the input value state in a variable
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+
+  // ------------------------------------------------------------------------------------------------------------------------------------------------>
+
+  //SECTION ----------------------------------------------------------------------------------------------------------------------------------------->
+  //NOTE - handleLoginClick: if email doesn't imclude @ symbol or password length is less than 6 characters an alert will come up, otherwise Login()
 
   const handleLoginClick = () => {
     if (!email.includes("@") || password.length < 6) {
@@ -29,6 +52,10 @@ function LoginPage() {
     }
   };
 
+  // ------------------------------------------------------------------------------------------------------------------------------------------------>
+
+  //SECTION ----------------------------------------------------------------------------------------------------------------------------------------->
+  //NOTE - Below is all imputs, headings and buttons on the LoginPage and styling
   return (
     <div className="loginBoxContainer">
       <div className="loginBox">
@@ -105,6 +132,7 @@ function LoginPage() {
       </div>
     </div>
   );
+  // ------------------------------------------------------------------------------------------------------------------------------------------------>
 }
 
 export default LoginPage;
