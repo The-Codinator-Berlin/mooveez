@@ -1,25 +1,24 @@
-.RegisterBox{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.RegisterBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.RegisterContainer{
-    display: grid;
-    place-items: center;
-    height: 45em;
+.RegisterContainer {
+  display: grid;
+  place-items: center;
+  height: 45em;
 }
 
-button{
-    width: 6em;
+button {
+  width: 6em;
 }
 
-.logOutButton{
-    width: 6em;
+.logOutButton {
+  width: 6em;
 }
 
-body{
-    overflow-y: hidden;
-   
+body {
+  overflow-y: hidden;
 }
