@@ -1,25 +1,20 @@
-.loginBox{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.loginBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.loginBoxContainer{
-    height: 45em;
-    display: grid;
-    place-items: center;
+.loginBoxContainer {
+  height: 45em;
+  display: grid;
+  place-items: center;
 }
 
-button{
-    width: 6em;
+button {
+  width: 6em;
 }
 
-.logOutButton{
-    width: 6em;
+.logOutButton {
+  width: 6em;
 }
-
-/* body{
-    overflow-y: hidden;
-   
-} */
