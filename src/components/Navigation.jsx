@@ -4,12 +4,12 @@ import "../css/Navigation.css";
 import { AuthContext } from "../context/AuthContext";
 
 function Navigation() {
-  const { user, logout } = useContext(AuthContext);
+  const { user, Logout } = useContext(AuthContext);
 
   /* //SECTION -------------------------------------------------------------------------------------------------------------> */
   //NOTE - logot function called from AuthContext via button onClick function handleLogoutUser
   const handleLogoutUser = () => {
-    logout();
+    Logout();
   };
 
   return (
